@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kavindu Dilhara — Software Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #fafaf8;
+      --paper:   #f4f2ed;
+      --ink:     #1a1a18;
+      --ink2:    #3d3d38;
+      --muted:   #8a8a82;
+      --rule:    #dddbd4;
+      --gold:    #b5863a;
+      --gold-lt: #e8d5b0;
+      --blue:    #2b4c7e;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .display {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px;
+      background: rgba(250,250,248,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center;
+      padding: 0 6%;
+      justify-content: space-between;
+    }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+    }
+    .nav-name span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      padding: 64px 6% 0;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      align-items: center;
+      gap: 6rem;
+      background: var(--white);
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%; height: 100%;
+      background: var(--paper);
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+    .hero-left { position: relative; z-index: 1; }
+    .hero-label { margin-bottom: 1.4rem; }
+    .hero-name {
+      font-size: clamp(3.2rem, 6vw, 5.4rem);
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+    }
+    .hero-title-line {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+    .hero-title-line hr { flex: 1; border: none; border-top: 1px solid var(--rule); max-width: 60px; }
+    .hero-role {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .hero-desc {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--ink2);
+      max-width: 480px;
+      line-height: 1.85;
+      margin-bottom: 2.4rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .cta-primary {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--ink);
+      transition: all 0.22s;
+    }
+    .cta-primary:hover { background: var(--gold); border-color: var(--gold); }
+    .cta-outline {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: transparent;
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--rule);
+      transition: all 0.22s;
+    }
+    .cta-outline:hover { border-color: var(--ink); }
+
+    .hero-right {
+      position: relative; z-index: 1;
+      align-self: end;
+    }
+    .photo-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+    .photo-wrap img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .photo-wrap::before {
+      content: '';
+      position: absolute;
+      top: -10px; left: -10px;
+      width: 80px; height: 80px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+    }
+    .photo-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -10px; right: -10px;
+      width: 80px; height: 80px;
+      border-bottom: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+    }
+    .photo-caption {
+      margin-top: 1.2rem;
+      text-align: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 6%; }
+    .sec-head { margin-bottom: 3.5rem; }
+    .sec-head .label { margin-bottom: 0.5rem; }
+    .sec-title { font-size: clamp(2rem, 3.5vw, 2.8rem); color: var(--ink); }
+    .sec-rule { width: 40px; height: 2px; background: var(--gold); margin-top: 1rem; }
+    .bg-paper { background: var(--paper); }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-body p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+    .about-body p strong { font-weight: 600; color: var(--ink); }
+    .contact-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.9rem; }
+    .ci {
+      display: flex; align-items: center; gap: 0.9rem;
+      font-size: 0.85rem; color: var(--ink2);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 0.9rem;
+    }
+    .ci:last-child { border-bottom: none; }
+    .ci-icon { width: 32px; text-align: center; font-size: 1rem; color: var(--gold); flex-shrink: 0; }
+    .ci a { color: var(--blue); }
+    .ci a:hover { text-decoration: underline; }
+    .about-facts { display: flex; flex-direction: column; gap: 1.5rem; }
+    .fact {
+      padding: 1.5rem;
+      border: 1px solid var(--rule);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .fact:hover { border-color: var(--gold); box-shadow: 4px 4px 0 var(--gold-lt); }
+    .fact-label { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .fact-value { font-size: 0.9rem; font-weight: 500; color: var(--ink); line-height: 1.5; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+    .pill {
+      font-size: 0.68rem; font-weight: 500;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--rule);
+      color: var(--ink2);
+      background: var(--paper);
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      border: 1px solid var(--rule);
+      background: var(--rule);
+    }
+    .skill-cell {
+      background: var(--white);
+      padding: 1.8rem;
+      transition: background 0.2s;
+    }
+    .skill-cell:hover { background: var(--paper); }
+    .skill-cell-icon { font-size: 1.4rem; margin-bottom: 0.8rem; }
+    .skill-cell-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.9rem;
+    }
+
+    /* PROJECTS */
+    .projects-stack { display: flex; flex-direction: column; }
+    .proj {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 2.5rem;
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: start;
+      transition: padding 0.25s, background 0.2s;
+    }
+    .proj:first-child { border-top: 1px solid var(--rule); }
+    .proj:hover { padding-left: 1rem; background: var(--paper); }
+    .proj-year-col { padding-top: 0.2rem; text-align: right; }
+    .proj-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .proj-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+    .proj-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.8;
+      margin-bottom: 0.9rem;
+      max-width: 620px;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .proj-tag {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border: 1px solid var(--blue);
+      color: var(--blue);
+    }
+
+    /* EDUCATION */
+    .edu-list { display: flex; flex-direction: column; gap: 2.5rem; }
+    .edu-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0 2.5rem;
+      align-items: start;
+    }
+    .edu-year-col { padding-top: 4px; text-align: right; }
+    .edu-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .edu-status {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .edu-body {
+      padding-left: 2rem;
+      border-left: 2px solid var(--rule);
+      position: relative;
+    }
+    .edu-body::before {
+      content: '';
+      position: absolute;
+      left: -5px; top: 6px;
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+    .edu-degree {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+    .edu-inst { font-size: 0.82rem; font-weight: 500; color: var(--blue); margin-bottom: 0.5rem; }
+    .edu-note { font-size: 0.82rem; font-weight: 300; color: var(--ink2); line-height: 1.7; }
+
+    /* CERTS */
+    .cert-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--rule);
+      background: var(--rule);
+      margin-top: 3rem;
+    }
+    .cert-item {
+      background: var(--white);
+      padding: 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: background 0.2s;
+    }
+    .cert-item:hover { background: var(--paper); }
+    .cert-ico { font-size: 1.3rem; margin-top: 2px; }
+    .cert-name { font-size: 0.86rem; font-weight: 600; margin-bottom: 0.2rem; line-height: 1.4; }
+    .cert-by { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* ACTIVITIES */
+    .act-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .act-card {
+      border: 1px solid var(--rule);
+      padding: 2rem;
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .act-card:hover { border-color: var(--gold); box-shadow: 4px 4px 0 var(--gold-lt); }
+    .act-ico { font-size: 1.8rem; flex-shrink: 0; }
+    .act-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .act-detail { font-size: 0.82rem; font-weight: 300; color: var(--ink2); line-height: 1.7; }
+
+    /* CONTACT */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-text p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.85;
+      margin-bottom: 1.8rem;
+    }
+    .contact-links-col { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+    .clink {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      border: 1px solid var(--rule);
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--ink);
+      transition: all 0.22s;
+    }
+    .clink:hover { border-color: var(--ink); background: var(--paper); }
+    .clink-icon { font-size: 1rem; color: var(--gold); width: 20px; text-align: center; }
+    .clink-text { flex: 1; }
+    .clink-arrow { font-size: 0.7rem; color: var(--muted); transition: transform 0.2s; }
+    .clink:hover .clink-arrow { transform: translateX(3px); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    footer strong { color: var(--ink); font-weight: 600; }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero::before { display: none; }
+      .hero-right { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 4%; }
+      .nav-links { display: none; }
+      section { padding: 4rem 5%; }
+      .hero { padding: 64px 5% 4rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .proj { grid-template-columns: 1fr; }
+      .proj-year-col { text-align: left; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">Kavindu <span>Dilhara</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-label label">Software Engineering Undergraduate</div>
+    <h1 class="display hero-name">Kavindu<br/>Dilhara</h1>
+    <div class="hero-title-line">
+      <hr/>
+      <span class="hero-role">IIT Sri Lanka · University of Westminster</span>
+    </div>
+    <p class="hero-desc">
+      A passionate developer turning complex problems into elegant solutions through code.
+      Specialising in Java, Python, and Web Development — open to internships and collaborations.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="cta-primary">View Projects</a>
+      <a href="#contact" class="cta-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="photo-wrap">
+      <!-- REPLACE THE src BELOW WITH YOUR PHOTO PATH OR BASE64 -->
+      <img src="c:\Users\kavin\Desktop\Portfolio\image.jpeg" alt="Kavindu Dilhara"/>
+    </div>
+    <p class="photo-caption">Kavindu Dilhara — Kalutara, Sri Lanka</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="bg-paper">
+  <div class="sec-head reveal">
+    <div class="label">01 — About</div>
+    <h2 class="display sec-title">Who I Am</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-body reveal">
+      <p>I am a passionate and innovative <strong>Software Engineering undergraduate</strong> with a deep love for turning complex problems into elegant solutions through code.</p>
+      <p>Currently pursuing a <strong>BEng (Hons) in Software Engineering</strong> at the Informatics Institute of Technology (IIT), Sri Lanka — affiliated with the <strong>University of Westminster, UK</strong>.</p>
+      <p>Motivated developer with knowledge in <strong>Java SE/EE, Python, JavaScript, HTML & CSS</strong>. Passionate about problem solving and continuous learning.</p>
+      <div class="contact-list">
+        <div class="ci"><span class="ci-icon">📞</span>+94 71 470 2704</div>
+        <div class="ci"><span class="ci-icon">✉</span><a href="mailto:kavindu0356@gmail.com">kavindu0356@gmail.com</a></div>
+        <div class="ci"><span class="ci-icon">📍</span>Kalutara, Sri Lanka</div>
+        <div class="ci"><span class="ci-icon">in</span><a href="https://www.linkedin.com/in/kavindu-jayasinghe-877174335/" target="_blank">linkedin.com/in/kavindu-jayasinghe</a></div>
+        <div class="ci"><span class="ci-icon">⌥</span><a href="https://github.com/kavindu-dil" target="_blank">github.com/kavindu-dil</a></div>
+      </div>
+    </div>
+    <div class="about-facts reveal">
+      <div class="fact">
+        <div class="fact-label">Current Degree</div>
+        <div class="fact-value">BEng (Hons) Software Engineering<br/><span style="font-size:0.8rem;color:var(--muted)">IIT · University of Westminster</span></div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Interests</div>
+        <div class="fact-value">Machine Learning · Web Development · Enterprise Software</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Soft Skills</div>
+        <div class="pill-row">
+          <span class="pill">Problem Solving</span>
+          <span class="pill">Critical Thinking</span>
+          <span class="pill">Communication</span>
+          <span class="pill">Teamwork</span>
+          <span class="pill">Time Management</span>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Memberships</div>
+        <div class="fact-value">IEEE Member — 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head reveal">
+    <div class="label">02 — Skills</div>
+    <h2 class="display sec-title">Technical Stack</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-cell">
+      <div class="skill-cell-icon">☕</div>
+      <div class="skill-cell-name">Languages</div>
+      <div class="pill-row">
+        <span class="pill">Java SE</span><span class="pill">Java EE</span>
+        <span class="pill">Python</span><span class="pill">JavaScript</span><span class="pill">C</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-icon">🌐</div>
+      <div class="skill-cell-name">Web Development</div>
+      <div class="pill-row">
+        <span class="pill">HTML5</span><span class="pill">CSS3</span>
+        <span class="pill">JavaScript</span><span class="pill">Servlets</span><span class="pill">XML</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-icon">⚙️</div>
+      <div class="skill-cell-name">Frameworks</div>
+      <div class="pill-row">
+        <span class="pill">Spring Boot</span><span class="pill">Hibernate</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-icon">📦</div>
+      <div class="skill-cell-name">Libraries</div>
+      <div class="pill-row">
+        <span class="pill">JavaFX</span><span class="pill">Swing</span><span class="pill">Graphics.py</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-icon">🗄️</div>
+      <div class="skill-cell-name">Database</div>
+      <div class="pill-row"><span class="pill">MySQL</span></div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-icon">🛠️</div>
+      <div class="skill-cell-name">Version Control</div>
+      <div class="pill-row"><span class="pill">Git</span><span class="pill">GitHub</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="bg-paper">
+  <div class="sec-head reveal">
+    <div class="label">03 — Projects</div>
+    <h2 class="display sec-title">Selected Work</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="projects-stack">
+
+    <div class="proj reveal">
+      <div class="proj-year-col"><div class="proj-year">2026</div></div>
+      <div class="proj-body">
+        <div class="proj-name">Full-Stack Online Library Management System (Group) - Librioo</div>
+        <p class="proj-desc">Developed comprehensive library management system with secure authentication and role-based access control for admin and user modules.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Spring Boot</span><span class="proj-tag">MySQL</span>
+          <span class="proj-tag">React.js</span><span class="proj-tag">Git</span>
+          <span class="proj-tag">Maven</span><span class="proj-tag">REST APIs</span>
+          <span class="proj-tag">Hibernate</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="proj reveal">
+      <div class="proj-year-col"><div class="proj-year">2025</div></div>
+      <div class="proj-body">
+        <div class="proj-name">Offline Gmail App System (Individual)</div>
+        <p class="proj-desc">A Gmail-style email management web application with authentication, inbox viewing, message creation, drafts, and trash handling. Focused on clean UI and smooth user workflows.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Java</span><span class="proj-tag">HTML</span>
+          <span class="proj-tag">CSS</span><span class="proj-tag">MySQL</span>
+          <span class="proj-tag">XML</span><span class="proj-tag">Servlets</span>
+        </div>
+      </div>
+    </div>
+    <div class="proj reveal">
+      <div class="proj-year-col"><div class="proj-year">2025</div></div>
+      <div class="proj-body">
+        <div class="proj-name">Zero Hunger Awareness Website (Group) - Feed the Future</div>
+        <p class="proj-desc">Web design and development coursework. Built feedback form, navigation bar, team page and overall styling for a zero-hunger awareness initiative. Fully responsive.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JavaScript</span>
+        </div>
+      </div>
+    </div>
+    <div class="proj reveal">
+      <div class="proj-year-col"><div class="proj-year">2024</div></div>
+      <div class="proj-body">
+        <div class="proj-name">Traffic Data Analyzing System (Individual)</div>
+        <p class="proj-desc">Python application using Graphics.py to visually analyse traffic data for provided datasets. Renders traffic flow information in an interactive graphical interface.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">Graphics.py</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-head reveal">
+    <div class="label">04 — Education</div>
+    <h2 class="display sec-title">Academic Background</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="edu-list">
+    <div class="edu-item reveal">
+      <div class="edu-year-col">
+        <div class="edu-year">2024 – Present</div>
+        <div class="edu-status">Current</div>
+      </div>
+      <div class="edu-body">
+        <div class="edu-degree">BEng (Hons) in Software Engineering</div>
+        <div class="edu-inst">Informatics Institute of Technology (IIT) · University of Westminster, UK</div>
+        <div class="edu-note">Software architecture, enterprise systems, algorithms, databases and modern development practices. Also enrolled in Industrial / Enterprise Software Development Program.</div>
+      </div>
+    </div>
+    <div class="edu-item reveal">
+      <div class="edu-year-col">
+        <div class="edu-year">2023</div>
+        <div class="edu-status">Completed</div>
+      </div>
+      <div class="edu-body">
+        <div class="edu-degree">G.C.E. Advanced Level Examination</div>
+        <div class="edu-inst">Miriswatta National School · Kalutara, Sri Lanka</div>
+        <div class="edu-note">Physical Science Stream — Combined Mathematics (C), Physics (C), Chemistry (S). Successfully Completed.</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:4rem" class="reveal">
+    <div class="label" style="margin-bottom:1rem">Certificates</div>
+    <div class="cert-row">
+      <div class="cert-item">
+        <div class="cert-ico">🏆</div>
+        <div>
+          <div class="cert-name">Certificate of Completion — Computer Literacy</div>
+          <div class="cert-by">The Open University of Sri Lanka</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-ico">🗣️</div>
+        <div>
+          <div class="cert-name">Certificate of Completion — English Literacy</div>
+          <div class="cert-by">The Open University of Sri Lanka</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-ico">💻</div>
+        <div>
+          <div class="cert-name">Industrial / Enterprise Software Development</div>
+          <div class="cert-by">Java SE / EE, Python & Frameworks · In Progress</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities" class="bg-paper">
+  <div class="sec-head reveal">
+    <div class="label">05 — Activities</div>
+    <h2 class="display sec-title">Extra Curricular</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="act-row">
+    <div class="act-card reveal">
+      <div class="act-ico">⚡</div>
+      <div>
+        <div class="act-title">IEEE Member — 2024</div>
+        <div class="act-detail">Institute of Electrical and Electronics Engineers. Active member in the global professional network for electrical, electronics and computing disciplines.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-text reveal">
+      <div class="label" style="margin-bottom:0.5rem">06 — Contact</div>
+      <h2 class="display sec-title">Let's Connect</h2>
+      <div class="sec-rule" style="margin-bottom:1.8rem"></div>
+      <p>I am currently open to internship opportunities and collaborative projects. Whether you have a question, a project idea, or just want to say hello — feel free to reach out.</p>
+      <a href="mailto:kavindu0356@gmail.com" class="cta-primary">Send a Message</a>
+    </div>
+    <div class="contact-links-col reveal">
+      <a href="mailto:kavindu0356@gmail.com" class="clink">
+        <span class="clink-icon">✉</span>
+        <span class="clink-text">kavindu0356@gmail.com</span>
+        <span class="clink-arrow">→</span>
+      </a>
+      <a href="tel:+94714702704" class="clink">
+        <span class="clink-icon">📞</span>
+        <span class="clink-text">+94 71 470 2704</span>
+        <span class="clink-arrow">→</span>
+      </a>
+      <a href="https://www.linkedin.com/in/kavindu-jayasinghe-877174335/" target="_blank" class="clink">
+        <span class="clink-icon">in</span>
+        <span class="clink-text">linkedin.com/in/kavindu-jayasinghe</span>
+        <span class="clink-arrow">→</span>
+      </a>
+      <a href="https://github.com/kavindu-dil" target="_blank" class="clink">
+        <span class="clink-icon">⌥</span>
+        <span class="clink-text">github.com/kavindu-dil</span>
+        <span class="clink-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 <strong>Kavindu Dilhara</strong></span>
+  <span>Software Engineering Undergraduate · IIT Sri Lanka</span>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
